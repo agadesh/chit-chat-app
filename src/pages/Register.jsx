@@ -7,14 +7,14 @@ import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-  const [err, setErr] = useState(false);
+  const [err, setErr] = useState({ flag: false, msg: "" });
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     setLoading(true);
-    setErr(false);
+    setErr({ flag: false, msg: "" });
     e.preventDefault();
     let displayName = e.target[0].value;
     let email = e.target[1].value;
@@ -22,7 +22,7 @@ const Register = () => {
     let avatar = e.target[3].files[0];
     if (!avatar) {
       setLoading(false);
-      alert("Please add display image");
+      setErr({ flag: true, msg: "Please add display image" });
       return;
     }
 
@@ -50,13 +50,13 @@ const Register = () => {
             await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/");
           } catch (err) {
-            setErr(true);
+            setErr({ flag: true, msg: err.message.split(":")[1]?.trim() });
             setLoading(false);
           }
         });
       });
     } catch (err) {
-      setErr(true);
+      setErr({ flag: true, msg: err.message.split(":")[1]?.trim() });
       setLoading(false);
     }
   };
@@ -84,7 +84,7 @@ const Register = () => {
             {loading ? "Please wait..." : "Sign up"}
           </button>
           <div className="statusMessage">
-            {err && <span className="error">Something went wrong.</span>}
+            {err.flag && <span className="error">{err.msg}</span>}
           </div>
         </form>
         <p>
