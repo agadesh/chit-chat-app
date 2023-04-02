@@ -145,6 +145,7 @@ $darkColor: #2f2d52;
       flex: 1;
       background-color: #3e3c61;
       position: relative;
+      min-width: 0;
 
       .navbar {
         display: flex;
@@ -214,7 +215,7 @@ $darkColor: #2f2d52;
         }
       }
       .chats {
-        overflow-y: scroll;
+        overflow-y: auto;
         height: calc(100% - 111px);
         border-right: 1px solid #3e3c61;
 
@@ -244,6 +245,8 @@ $darkColor: #2f2d52;
         }
 
         .userChatInfo {
+          overflow: hidden;
+          width: calc(100% - 60px);
           span {
             font-size: 18px;
             font-weight: 500;
@@ -251,12 +254,15 @@ $darkColor: #2f2d52;
           p {
             font-size: 14px;
             color: lightgray;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
         }
       }
     }
     .chat {
       flex: 2;
+      min-width: 0;
 
       .chatInfo {
         padding: 10px;
@@ -300,7 +306,7 @@ $darkColor: #2f2d52;
         padding: 10px;
         background-color: #ddddf7;
         height: calc(100% - 160px);
-        overflow-y: scroll;
+        overflow-y: auto;
 
         .message {
           // border: 1px solid red;
@@ -334,6 +340,8 @@ $darkColor: #2f2d52;
               padding: 10px 20px;
               border-radius: 0px 10px 10px 10px;
               max-width: max-content;
+              word-wrap: break-word;
+              width: calc(100% - 40px);
             }
             img {
               width: 50%;

@@ -11,7 +11,7 @@ const Message = ({ messageData }) => {
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messageData]);
+  }, []);
 
   const msgOwner =
     currentUser.uid === messageData.senderId ? currentUser : data.user;
@@ -19,7 +19,7 @@ const Message = ({ messageData }) => {
   return (
     <div
       ref={ref}
-      className={`message ${msgOwner === currentUser && "ownMessage"}`}
+      className={`message ${msgOwner === currentUser ? "ownMessage" : ""}`}
     >
       <div className="messageContent">
         {messageData.text && <p>{messageData.text}</p>}

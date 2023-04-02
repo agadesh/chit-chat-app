@@ -32,7 +32,7 @@ const Chats = () => {
         .map((chat) => (
           <div
             className={`userChat ${
-              data.user.uid === chat[1].userInfo.uid && "selectedChat"
+              data.user.uid === chat[1].userInfo.uid ? "selectedChat" : ""
             }`}
             key={chat[0]}
             onClick={() => handleSelect(chat[1].userInfo)}
