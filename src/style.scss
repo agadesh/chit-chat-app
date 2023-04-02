@@ -21,6 +21,27 @@
 // SASS Variables
 $darkColor: #2f2d52;
 
+.chats,
+.messages {
+  &::-webkit-scrollbar {
+    width: 0.5vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 5px;
+    &:hover {
+      background-color: #111;
+    }
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(90, 86, 86, 0.078);
+  }
+}
+// .messages {
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// }
 .formContainer {
   background-color: #a7bcff;
   height: 100vh;
@@ -76,6 +97,20 @@ $darkColor: #2f2d52;
         font-weight: bold;
         border: none;
         cursor: pointer;
+        &:disabled {
+          background-color: #9bade6;
+        }
+      }
+      .statusMessage {
+        text-align: center;
+        span {
+          color: #5d5b8d;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+        .error {
+          color: #ad422c;
+        }
       }
     }
     p {
@@ -95,8 +130,8 @@ $darkColor: #2f2d52;
   .container {
     border: 1px solid #fff;
     border-radius: 10px;
-    width: 65%;
-    height: 80%;
+    width: 90%;
+    height: 90%;
     display: flex;
     overflow: hidden;
 
@@ -126,6 +161,7 @@ $darkColor: #2f2d52;
         }
         .user {
           display: flex;
+          align-items: center;
           gap: 10px;
 
           img {
@@ -138,9 +174,15 @@ $darkColor: #2f2d52;
           button {
             background-color: #5d5b8d;
             color: #ddddf7;
-            font-size: 10px;
+            font-size: 12px;
             border: none;
+            padding: 4px 6px;
+            border-radius: 2px;
             cursor: pointer;
+
+            &:active {
+              background-color: #3e3c61;
+            }
 
             @include tablet {
               position: absolute;
@@ -153,9 +195,12 @@ $darkColor: #2f2d52;
         border-bottom: 1px solid gray;
 
         .searchForm {
-          padding: 10px;
+          height: 30px;
+          padding: 5px;
           input {
             background-color: transparent;
+            height: 100%;
+            width: 100%;
             border: none;
             color: #fff;
             outline: none;
@@ -166,6 +211,16 @@ $darkColor: #2f2d52;
           }
         }
       }
+      .chats {
+        overflow-y: scroll;
+        height: calc(100% - 111px);
+        border-right: 1px solid #3e3c61;
+
+        @include tablet {
+          height: calc(100% - 150px);
+          border-bottom: 1px solid gray;
+        }
+      }
       .userChat {
         padding: 10px;
         display: flex;
@@ -174,7 +229,8 @@ $darkColor: #2f2d52;
         color: #fff;
         cursor: pointer;
 
-        &:hover {
+        &:hover,
+        &.selectedChat {
           background-color: #2f2d52;
         }
 
@@ -202,19 +258,39 @@ $darkColor: #2f2d52;
 
       .chatInfo {
         padding: 10px;
-        color: lightgray;
+        color: #fff;
         height: 50px;
         background-color: #5d5b8d;
         display: flex;
         align-items: center;
         justify-content: space-between;
-      }
-      .chatIcons {
-        display: flex;
-        gap: 10px;
-        img {
-          height: 24px;
-          cursor: pointer;
+
+        .chatUserInfo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 20px;
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          .userInfo {
+            display: flex;
+            flex-direction: column;
+            .email {
+              font-size: 12px;
+              color: #e4e4e4;
+            }
+          }
+        }
+        .chatIcons {
+          display: flex;
+          gap: 10px;
+          img {
+            height: 24px;
+          }
         }
       }
 
@@ -225,8 +301,10 @@ $darkColor: #2f2d52;
         overflow-y: scroll;
 
         .message {
+          // border: 1px solid red;
           display: flex;
-          gap: 20px;
+          flex-direction: column;
+          gap: 4px;
           margin-bottom: 20px;
 
           .messageInfo {
@@ -234,6 +312,8 @@ $darkColor: #2f2d52;
             flex-direction: column;
             color: gray;
             font-weight: 300;
+            font-size: 11px;
+            margin: 0px 10px;
             img {
               width: 40px;
               height: 40px;
@@ -255,13 +335,17 @@ $darkColor: #2f2d52;
             }
             img {
               width: 50%;
+              background-color: #fff;
+              padding: 10px;
+              border-radius: 0px 10px 10px 10px;
             }
           }
-          &.owner {
-            flex-direction: row-reverse;
+          &.ownMessage {
+            align-items: flex-end;
             .messageContent {
               align-items: flex-end;
-              p {
+              p,
+              img {
                 background-color: #8da4f1;
                 color: #fff;
                 border-radius: 10px 0px 10px 10px;
@@ -283,6 +367,7 @@ $darkColor: #2f2d52;
           border: none;
           outline: none;
           width: 100%;
+          height: 100%;
           color: #2f2d52;
           font-size: 18px;
 
@@ -299,6 +384,9 @@ $darkColor: #2f2d52;
           img {
             height: 24px;
             cursor: pointer;
+            &:active {
+              background-color: #eaeaf4;
+            }
           }
 
           button {
@@ -306,6 +394,15 @@ $darkColor: #2f2d52;
             padding: 10px 15px;
             color: #fff;
             background-color: #8da4f1;
+            cursor: pointer;
+            &:active {
+              background-color: #5d5b8d;
+            }
+            &:disabled {
+              // background-color: #9bade6;
+              background-color: #afafaf;
+              cursor: default;
+            }
           }
         }
       }
