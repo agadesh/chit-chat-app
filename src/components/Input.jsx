@@ -23,12 +23,15 @@ const Input = () => {
   const [image, setImage] = useState(null);
 
   const handleSend = async () => {
+    console.log("start");
     if (image) {
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, image);
 
       uploadTask.on(
+        "state_changed",
+        () => {},
         (error) => {
           // Handle unsuccessful uploads
           // setErr(true);
@@ -71,16 +74,23 @@ const Input = () => {
       [data.chatId + ".date"]: serverTimestamp(),
     });
     setImage(null);
+    console.log("end");
     setText("");
   };
 
+  const handleKey = (e) => {
+    e.code === "Enter" && handleSend();
+  };
   return (
     <div className="input">
       <input
         type="text"
         placeholder="Type something..."
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => {
+          setText(e.target.value);
+        }}
         value={text}
+        onKeyDown={handleKey}
       />
       <div className="send">
         {/* <img src={Attach} alt="" /> */}
