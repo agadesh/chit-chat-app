@@ -104,7 +104,7 @@ const Input = () => {
         <label htmlFor="file">
           <img src={image ? ImgAdded : Img} alt="" />
         </label>
-        <button disabled={!(image || text)} onClick={handleSend}>
+        <button disabled={!(image || text.trim())} onClick={handleSend}>
           Send
         </button>
       </div>

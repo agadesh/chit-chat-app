@@ -19,7 +19,23 @@
 }
 
 // SASS Variables
-$darkColor: #2f2d52;
+$scrollbarThumb: #aaa;
+$scrollbarThumbHover: #111;
+$error: #ad422c;
+$secondaryTheme: #2f2f2f;
+$primaryTheme: #0c7c59;
+$primaryTheme80: #0c7c58cc;
+$primaryLight: #3d8c7e;
+$primaryLighter: #85b5a6;
+$primaryBackground: #f5fbef;
+$NeutralLight: #eff2ec;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px $primaryBackground inset !important;
+}
 
 .chats,
 .messages {
@@ -27,10 +43,10 @@ $darkColor: #2f2d52;
     width: 0.5vw;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #aaa;
+    background-color: $scrollbarThumb;
     border-radius: 5px;
     &:hover {
-      background-color: #111;
+      background-color: $scrollbarThumbHover;
     }
   }
   &::-webkit-scrollbar-track {
@@ -43,12 +59,13 @@ $darkColor: #2f2d52;
 //   }
 // }
 .formContainer {
-  background-color: #a7bcff;
+  background-color: $primaryBackground;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   .formWrapper {
+    border: 1px solid #f1f1f1;
     background-color: #fff;
     padding: 20px 60px;
     border-radius: 10px;
@@ -57,12 +74,12 @@ $darkColor: #2f2d52;
     gap: 10px;
     align-items: center;
     .logo {
-      color: #5d5b8d;
+      color: $primaryTheme;
       font-weight: bold;
       font-size: 24px;
     }
     .title {
-      color: #5d5b8d;
+      color: $primaryLight;
       font-size: 12px;
     }
     form {
@@ -73,17 +90,18 @@ $darkColor: #2f2d52;
       input {
         padding: 15px;
         border: none;
-        border-bottom: 1px solid #a7bcff;
+        outline: none;
+        border-bottom: 1px solid $primaryLighter;
         width: 250px;
         &::placeholder {
-          color: #afafaf;
+          color: $primaryLighter;
         }
       }
       label {
         display: flex;
         align-items: center;
         gap: 10px;
-        color: #8da4f1;
+        color: $primaryLighter;
         font-size: 12px;
         cursor: pointer;
         img {
@@ -91,14 +109,14 @@ $darkColor: #2f2d52;
         }
       }
       button {
-        background-color: #7b96ec;
+        background-color: $primaryTheme;
         color: #fff;
         padding: 10px;
         font-weight: bold;
         border: none;
         cursor: pointer;
         &:disabled {
-          background-color: #9bade6;
+          background-color: $primaryLighter;
         }
       }
       .statusMessage {
@@ -106,31 +124,30 @@ $darkColor: #2f2d52;
         width: 250px;
         margin: auto;
         span {
-          color: #5d5b8d;
           font-size: 12px;
           margin-top: 10px;
         }
         .error {
-          color: #ad422c;
+          color: $error;
         }
       }
     }
     p {
-      color: #5d5b8d;
+      color: $primaryLight;
       font-size: 12px;
       margin-top: 10px;
     }
   }
 }
 .home {
-  background-color: #a7bcff;
+  background-color: $primaryBackground;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .container {
-    border: 1px solid #fff;
+    border: 1px solid #ddd;
     border-radius: 10px;
     width: 90%;
     height: 90%;
@@ -143,18 +160,19 @@ $darkColor: #2f2d52;
 
     .sidebar {
       flex: 1;
-      background-color: #3e3c61;
+      background-color: $secondaryTheme;
       position: relative;
       min-width: 0;
 
       .navbar {
         display: flex;
         align-items: center;
-        background-color: $darkColor;
+        background-color: $secondaryTheme;
         height: 50px;
         padding: 10px;
         justify-content: space-between;
-        color: #ddddf7;
+        color: $NeutralLight;
+        border-bottom: 1px solid #808080;
 
         .logo {
           font-weight: bold;
@@ -168,15 +186,15 @@ $darkColor: #2f2d52;
           gap: 10px;
 
           img {
-            background-color: #ddddf7;
+            background-color: $NeutralLight;
             height: 24px;
             width: 24px;
             border-radius: 50%;
             object-fit: cover;
           }
           button {
-            background-color: #5d5b8d;
-            color: #ddddf7;
+            background-color: $primaryTheme;
+            color: $NeutralLight;
             font-size: 12px;
             border: none;
             padding: 4px 6px;
@@ -184,7 +202,7 @@ $darkColor: #2f2d52;
             cursor: pointer;
 
             &:active {
-              background-color: #3e3c61;
+              background-color: $primaryLighter;
             }
 
             @include tablet {
@@ -195,7 +213,7 @@ $darkColor: #2f2d52;
         }
       }
       .search {
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid #808080;
 
         .searchForm {
           height: 30px;
@@ -217,7 +235,7 @@ $darkColor: #2f2d52;
       .chats {
         overflow-y: auto;
         height: calc(100% - 111px);
-        border-right: 1px solid #3e3c61;
+        border-right: 1px solid $secondaryTheme;
 
         @include tablet {
           height: calc(100% - 150px);
@@ -232,9 +250,11 @@ $darkColor: #2f2d52;
         color: #fff;
         cursor: pointer;
 
-        &:hover,
+        &:hover {
+          background-color: $primaryTheme80;
+        }
         &.selectedChat {
-          background-color: #2f2d52;
+          background-color: $primaryTheme;
         }
 
         img {
@@ -268,7 +288,7 @@ $darkColor: #2f2d52;
         padding: 10px;
         color: #fff;
         height: 50px;
-        background-color: #5d5b8d;
+        background-color: $primaryTheme;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -304,7 +324,7 @@ $darkColor: #2f2d52;
 
       .messages {
         padding: 10px;
-        background-color: #ddddf7;
+        background-color: $NeutralLight;
         height: calc(100% - 160px);
         overflow-y: auto;
 
@@ -321,7 +341,7 @@ $darkColor: #2f2d52;
             color: gray;
             font-weight: 300;
             font-size: 11px;
-            margin: 0px 10px;
+            margin: 0px 0px 0px 5px;
             img {
               width: 40px;
               height: 40px;
@@ -356,10 +376,13 @@ $darkColor: #2f2d52;
               align-items: flex-end;
               p,
               img {
-                background-color: #8da4f1;
+                background-color: $primaryLight;
                 color: #fff;
                 border-radius: 10px 0px 10px 10px;
               }
+            }
+            .messageInfo {
+              margin: 0px 5px 0px 0px;
             }
           }
         }
@@ -372,17 +395,18 @@ $darkColor: #2f2d52;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-top: 1px solid lightgray;
 
         input {
           border: none;
           outline: none;
           width: 100%;
           height: 100%;
-          color: #2f2d52;
+          color: $secondaryTheme;
           font-size: 18px;
 
           &::placeholder {
-            color: lightgray;
+            color: $primaryLighter;
           }
         }
 
@@ -394,23 +418,20 @@ $darkColor: #2f2d52;
           img {
             height: 24px;
             cursor: pointer;
-            &:active {
-              background-color: #eaeaf4;
-            }
           }
 
           button {
             border: none;
             padding: 10px 15px;
             color: #fff;
-            background-color: #8da4f1;
+            background-color: $primaryLight;
             cursor: pointer;
             &:active {
-              background-color: #5d5b8d;
+              background-color: $primaryTheme;
             }
             &:disabled {
-              // background-color: #9bade6;
-              background-color: #afafaf;
+              // background-color: $color7;
+              background-color: $primaryLighter;
               cursor: default;
             }
           }
